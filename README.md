@@ -1,5 +1,5 @@
 # Cloud-Technologies-Data-Analysis
-Data Analysis of data from Stack Exchange Data Explorer using Pig, Hive and MapReduce Cloud Technologies.
+Analysis of data from Stack Exchange Data Explorer using Pig, Hive and MapReduce cloud technologies implemented on the Google Cloud Platform (GCP) cloud system.
 
 Task 1 - Acquire the top 200,000 posts by View Count.
 
