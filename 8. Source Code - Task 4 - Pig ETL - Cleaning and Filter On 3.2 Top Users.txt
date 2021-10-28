@@ -1,0 +1,57 @@
+grunt> StackExchangeData_Total_Task4 = LOAD '/Data_Acquisition_Collection/*.csv' USING org.apache.pig.piggybank.storage.CSVExcelStorage(',','YES_MULTILINE','NOCHANGE','SKIP_INPUT_HEADER') AS(Id:int, PostTypeId:int, AcceptedAnswerId:int, ParentId:int, CreationDate:datetime, DeletionDate:datetime, Score:int, ViewCount:int, Body:chararray, OwnerUserId:int, OwnerDisplayName:chararray, LastEditorUserId:int, LastEditorDisplayName:chararray, LastEditDate:datetime, LastActivityDate:datetime, Title:chararray, Tags:chararray, AnswerCount:int, CommentCount:int, FavoriteCount:int, ClosedDate:datetime, CommunityOwnedDate:datetime, ContentLicense:chararray);
+
+grunt> StackExchangeData_Total_Column_Filter = FOREACH StackExchangeData_Total_Task4 GENERATE Id,Score,ViewCount,Body,OwnerUserId,OwnerDisplayName,Title;
+
+grunt> StackExchangeData_Total_Grouped = GROUP StackExchangeData_Total_Column_Filter BY Id;
+
+grunt> StackExchangeData_Total_Distinct_ID = FOREACH StackExchangeData_Total_Grouped {result = TOP(1, 0, $1);GENERATE FLATTEN(result);}
+
+grunt> StackExchangeData_Cleaning_1 = FOREACH StackExchangeData_Total_Distinct_ID GENERATE Id,Score,ViewCount, REPLACE(Body,'<.*?.>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'<.*?.>','') as Title;
+
+grunt> StackExchangeData_Cleaning_2 = FOREACH StackExchangeData_Cleaning_1 GENERATE Id,Score,ViewCount, REPLACE(Body,'\n',' ') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\n','') as Title;
+
+grunt> StackExchangeData_Cleaning_3 = FOREACH StackExchangeData_Cleaning_2 GENERATE Id,Score,ViewCount, REPLACE(Body,'<*>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'<*>','') as Title;
+
+grunt> StackExchangeData_Cleaning_4 = FOREACH StackExchangeData_Cleaning_3 GENERATE Id,Score,ViewCount, REPLACE(Body,'</p>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'</p>','') as Title;
+
+grunt> StackExchangeData_Cleaning_5 = FOREACH StackExchangeData_Cleaning_4 GENERATE Id,Score,ViewCount, REPLACE(Body,'<p>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'<p>','') as Title;
+
+grunt> StackExchangeData_Cleaning_6 = FOREACH StackExchangeData_Cleaning_5 GENERATE Id,Score,ViewCount, REPLACE(Body,'</code>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'</code>','') as Title;
+
+grunt> StackExchangeData_Cleaning_7 = FOREACH StackExchangeData_Cleaning_6 GENERATE Id,Score,ViewCount, REPLACE(Body,'<code>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'<code>','') as Title;
+
+grunt> StackExchangeData_Cleaning_8 = FOREACH StackExchangeData_Cleaning_7 GENERATE Id,Score,ViewCount, REPLACE(Body,'<pre','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'<pre','') as Title;
+
+grunt> StackExchangeData_Cleaning_9 = FOREACH StackExchangeData_Cleaning_8 GENERATE Id,Score,ViewCount, REPLACE(Body,'</pre>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'</pre>','') as Title;
+
+grunt> StackExchangeData_Cleaning_10 = FOREACH StackExchangeData_Cleaning_9 GENERATE Id,Score,ViewCount, REPLACE(Body,'</blockquote>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'</blockquote>','') as Title;
+
+grunt> StackExchangeData_Cleaning_11 = FOREACH StackExchangeData_Cleaning_10 GENERATE Id,Score,ViewCount, REPLACE(Body,'</ul>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'</ul>','') as Title;
+
+grunt> StackExchangeData_Cleaning_12 = FOREACH StackExchangeData_Cleaning_11 GENERATE Id,Score,ViewCount, REPLACE(Body,'</li>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'<li>','') as Title;
+
+grunt> StackExchangeData_Cleaning_13 = FOREACH StackExchangeData_Cleaning_12 GENERATE Id,Score,ViewCount, REPLACE(Body,'\r','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\r','') as Title;
+
+grunt> StackExchangeData_Cleaning_14 = FOREACH StackExchangeData_Cleaning_13 GENERATE Id,Score,ViewCount, REPLACE(Body,'\t','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\t','') as Title;
+
+grunt> StackExchangeData_Cleaning_15 = FOREACH StackExchangeData_Cleaning_14 GENERATE Id,Score,ViewCount, REPLACE(Body,'\\,','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\\,','') as Title;
+
+grunt> StackExchangeData_Cleaning_16 = FOREACH StackExchangeData_Cleaning_15 GENERATE Id,Score,ViewCount, REPLACE(Body,'\\(','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\\(','') as Title;
+
+grunt> StackExchangeData_Cleaning_17 = FOREACH StackExchangeData_Cleaning_16 GENERATE Id,Score,ViewCount, REPLACE(Body,'\\)','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\\)','') as Title;
+
+grunt> StackExchangeData_Cleaning_18 = FOREACH StackExchangeData_Cleaning_17 GENERATE Id,Score,ViewCount, REPLACE(Body,'\\"','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\\"','') as Title;
+
+grunt> StackExchangeData_Cleaning_19 = FOREACH StackExchangeData_Cleaning_18 GENERATE Id,Score,ViewCount, REPLACE(Body,'\\<*p>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\\<*p>','') as Title;
+
+grunt> StackExchangeData_Cleaning_20 = FOREACH StackExchangeData_Cleaning_19 GENERATE Id,Score,ViewCount, REPLACE(Body,'\\<','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\\<','') as Title;
+
+grunt> StackExchangeData_Cleaning_21 = FOREACH StackExchangeData_Cleaning_20 GENERATE Id,Score,ViewCount, REPLACE(Body,'\\>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\\>','') as Title;
+
+grunt> StackExchangeData_Total_Task4_Cleaned = FILTER StackExchangeData_Cleaning_21 BY (OwnerUserId == 87234 or OwnerUserId == 4883 or OwnerUserId == 9951 or OwnerUserId == 6068 or OwnerUserId == 89904 or OwnerUserId == 51816 or OwnerUserId == 179736 or OwnerUserId == 95592 or OwnerUserId == 63051 or OwnerUserId == 4915) ;
+
+grunt> StackExchangeData_Total_Task4_Title_Body = FOREACH StackExchangeData_Total_Task4_Cleaned GENERATE OwnerUserId, CONCAT(Body,' ',Title) AS Body_Title;
+
+grunt> StackExchangeData_Total_Task4_Final = FOREACH StackExchangeData_Total_Task4_Title_Body GENERATE OwnerUserId, LOWER(TRIM(REPLACE(Body_Title,'[ ]{2,}',' '))) AS Body_Title;
+
+grunt> STORE StackExchangeData_Total_Task4_Final INTO '/user/colin_hehir3/StackExchangeData_Total_Task4_Final_Output' USING org.apache.pig.piggybank.storage.CSVExcelStorage(',','NO_MULTILINE','NOCHANGE','SKIP_OUTPUT_HEADER');
