@@ -1,0 +1,45 @@
+grunt> StackExchangeData_Cleaning_1 = FOREACH StackExchangeData_Total_Distinct_ID GENERATE Id,Score,ViewCount, REPLACE(Body,'<.*?.>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'<.*?.>','') as Title; 
+
+grunt> StackExchangeData_Cleaning_2 = FOREACH StackExchangeData_Cleaning_1 GENERATE Id,Score,ViewCount, REPLACE(Body,'\n',' ') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\n','') as Title;
+
+grunt> StackExchangeData_Cleaning_3 = FOREACH StackExchangeData_Cleaning_2 GENERATE Id,Score,ViewCount, REPLACE(Body,'<*>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'<*>','') as Title;
+
+grunt> StackExchangeData_Cleaning_4 = FOREACH StackExchangeData_Cleaning_3 GENERATE Id,Score,ViewCount, REPLACE(Body,'</p>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'</p>','') as Title;
+
+grunt> StackExchangeData_Cleaning_5 = FOREACH StackExchangeData_Cleaning_4 GENERATE Id,Score,ViewCount, REPLACE(Body,'<p>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'<p>','') as Title;
+
+grunt> StackExchangeData_Cleaning_6 = FOREACH StackExchangeData_Cleaning_5 GENERATE Id,Score,ViewCount, REPLACE(Body,'</code>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'</code>','') as Title;
+
+grunt> StackExchangeData_Cleaning_7 = FOREACH StackExchangeData_Cleaning_6 GENERATE Id,Score,ViewCount, REPLACE(Body,'<code>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'<code>','') as Title;
+
+grunt> StackExchangeData_Cleaning_8 = FOREACH StackExchangeData_Cleaning_7 GENERATE Id,Score,ViewCount, REPLACE(Body,'<pre','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'<pre','') as Title;
+
+grunt> StackExchangeData_Cleaning_9 = FOREACH StackExchangeData_Cleaning_8 GENERATE Id,Score,ViewCount, REPLACE(Body,'</pre>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'</pre>','') as Title;
+
+grunt> StackExchangeData_Cleaning_10 = FOREACH StackExchangeData_Cleaning_9 GENERATE Id,Score,ViewCount, REPLACE(Body,'</blockquote>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'</blockquote>','') as Title;
+
+grunt> StackExchangeData_Cleaning_11 = FOREACH StackExchangeData_Cleaning_10 GENERATE Id,Score,ViewCount, REPLACE(Body,'</ul>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'</ul>','') as Title;
+
+grunt> StackExchangeData_Cleaning_12 = FOREACH StackExchangeData_Cleaning_11 GENERATE Id,Score,ViewCount, REPLACE(Body,'</li>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'<li>','') as Title;
+
+grunt> StackExchangeData_Cleaning_13 = FOREACH StackExchangeData_Cleaning_12 GENERATE Id,Score,ViewCount, REPLACE(Body,'\r','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\r','') as Title;
+
+grunt> StackExchangeData_Cleaning_14 = FOREACH StackExchangeData_Cleaning_13 GENERATE Id,Score,ViewCount, REPLACE(Body,'\t','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\t','') as Title;
+
+grunt> StackExchangeData_Cleaning_15 = FOREACH StackExchangeData_Cleaning_14 GENERATE Id,Score,ViewCount, REPLACE(Body,'\\,','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\\,','') as Title;
+
+grunt> StackExchangeData_Cleaning_16 = FOREACH StackExchangeData_Cleaning_15 GENERATE Id,Score,ViewCount, REPLACE(Body,'\\(','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\\(','') as Title;
+
+grunt> StackExchangeData_Cleaning_17 = FOREACH StackExchangeData_Cleaning_16 GENERATE Id,Score,ViewCount, REPLACE(Body,'\\)','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\\)','') as Title;
+
+grunt> StackExchangeData_Cleaning_18 = FOREACH StackExchangeData_Cleaning_17 GENERATE Id,Score,ViewCount, REPLACE(Body,'\\"','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\\"','') as Title;
+
+grunt> StackExchangeData_Cleaning_19 = FOREACH StackExchangeData_Cleaning_18 GENERATE Id,Score,ViewCount, REPLACE(Body,'\\<*p>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\\<*p>','') as Title;
+
+grunt> StackExchangeData_Cleaning_20 = FOREACH StackExchangeData_Cleaning_19 GENERATE Id,Score,ViewCount, REPLACE(Body,'\\<','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\\<','') as Title;
+
+grunt> StackExchangeData_Cleaning_21 = FOREACH StackExchangeData_Cleaning_20 GENERATE Id,Score,ViewCount, REPLACE(Body,'\\>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\\>','') as Title;
+
+grunt> TestData = LIMIT StackExchangeData_Cleaning_21 5;
+
+grunt> DUMP TestData
