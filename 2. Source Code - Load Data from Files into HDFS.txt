@@ -1,0 +1,17 @@
+$ hadoop fs -ls /
+
+$ hadoop fs -mkdir /Data_Acquisition_Collection
+
+#Upload files: Settings>Upload file
+
+$ hadoop fs -put /home/colin_hehir3/Stack_Exchange_Query_Results_1.csv /Data_Acquisition_Collection
+
+$ hadoop fs -put /home/colin_hehir3/Stack_Exchange_Query_Results_2.csv /Data_Acquisition_Collection
+
+$ hadoop fs -put /home/colin_hehir3/Stack_Exchange_Query_Results_3.csv /Data_Acquisition_Collection
+
+$ hadoop fs -put /home/colin_hehir3/Stack_Exchange_Query_Results_4.csv /Data_Acquisition_Collection
+
+$ hadoop fs -put /home/colin_hehir3/Stack_Exchange_Query_Results_5.csv /Data_Acquisition_Collection
+
+$ hadoop fs -ls /Data_Acquisition_Collection
