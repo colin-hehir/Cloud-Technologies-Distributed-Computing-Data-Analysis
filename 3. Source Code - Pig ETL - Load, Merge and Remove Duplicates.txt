@@ -1,0 +1,9 @@
+$ pig
+
+grunt> StackExchangeData_Total = LOAD '/Data_Acquisition_Collection/*.csv' USING org.apache.pig.piggybank.storage.CSVExcelStorage(',','YES_MULTILINE','NOCHANGE','SKIP_INPUT_HEADER') AS(Id:int, PostTypeId:int, AcceptedAnswerId:int, ParentId:int, CreationDate:datetime, DeletionDate:datetime, Score:int, ViewCount:int, Body:chararray, OwnerUserId:int, OwnerDisplayName:chararray, LastEditorUserId:int, LastEditorDisplayName:chararray, LastEditDate:datetime, LastActivityDate:datetime, Title:chararray, Tags:chararray, AnswerCount:int, CommentCount:int, FavoriteCount:int, ClosedDate:datetime, CommunityOwnedDate:datetime, ContentLicense:chararray);
+
+grunt> StackExchangeData_Total_Column_Filter = FOREACH StackExchangeData_Total GENERATE Id,Score,ViewCount,Body,OwnerUserId,OwnerDisplayName,Title;
+
+grunt> StackExchangeData_Total_Grouped = GROUP StackExchangeData_Total_Column_Filter BY Id;
+
+grunt> StackExchangeData_Total_Distinct_ID = FOREACH StackExchangeData_Total_Grouped {result = TOP(1, 0, $1);GENERATE FLATTEN(result);}
