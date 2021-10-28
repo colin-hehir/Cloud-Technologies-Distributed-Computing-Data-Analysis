@@ -1,0 +1,15 @@
+-	select count(*) from posts where posts.ViewCount > 41232
+
+-	select count(*) from posts where posts.ViewCount > 41231
+
+-	select top 50000* from posts where posts.ViewCount > 41231 order by posts.ViewCount DESC
+
+-	select top 50000 * from posts where posts.ViewCount <= 127078 order by posts.ViewCount DESC
+
+-	select top 50000 * from posts where posts.ViewCount <= 74420 order by posts.ViewCount DESC
+
+-	select top 50000 * from posts where posts.ViewCount <= 53077 order by posts.ViewCount DESC
+
+-	select count(*) from posts where posts.ViewCount <= 41234 and posts.ViewCount > 41231
+
+-	select top 50000 * from posts where posts.ViewCount <= 41234 and posts.ViewCount > 41231 order by posts.ViewCount DESC
