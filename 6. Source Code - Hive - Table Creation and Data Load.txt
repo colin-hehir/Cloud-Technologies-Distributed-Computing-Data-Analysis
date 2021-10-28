@@ -1,0 +1,11 @@
+$ hive
+
+hive> CREATE TABLE DATASET (Id int, Score int, ViewCount int, Body string, OwnerUserId int, OwnerDisplayName string, Title string) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|' TBLPROPERTIES('skip.header.line.count'='1');
+
+hive> LOAD DATA INPATH '/Final_Dataset/part-r-00000' INTO TABLE FINALDATASET;
+
+hive> SELECT COUNT(*) FROM FINALDATASET;
+
+hive> select * from DATASET order by ViewCount desc limit 5;
+
+hive> set hive.cli.print.header=true;
