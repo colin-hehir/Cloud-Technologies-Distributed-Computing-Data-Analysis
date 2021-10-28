@@ -1,0 +1,3 @@
+grunt> STORE StackExchangeData_Cleaning_21 INTO '/Final_Dataset' USING org.apache.pig.piggybank.storage.CSVExcelStorage('|','NO_MULTILINE','NOCHANGE','SKIP_OUTPUT_HEADER');
+
+$ hadoop fs -ls /Final_Dataset
