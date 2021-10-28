@@ -4,7 +4,7 @@ hive> CREATE TABLE DATASET (Id int, Score int, ViewCount int, Body string, Owner
 
 hive> LOAD DATA INPATH '/Final_Dataset/part-r-00000' INTO TABLE FINALDATASET;
 
-hive> SELECT COUNT(*) FROM FINALDATASET;
+hive> SELECT COUNT(*) FROM DATASET;
 
 hive> select * from DATASET order by ViewCount desc limit 5;
 
