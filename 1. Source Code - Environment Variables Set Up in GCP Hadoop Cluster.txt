@@ -1,0 +1,13 @@
+$ whoami
+
+$ hadoop fs -mkdir -p /user/colin_hehir3
+
+$ java -version
+
+$ export PATH=${JAVA_HOME}/bin:${PATH}
+
+$ export HADOOP_CLASSPATH=${JAVA_HOME}/lib/tools.jar
+
+$ hadoop fs -ls
+
+$ env
