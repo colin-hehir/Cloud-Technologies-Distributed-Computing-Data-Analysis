@@ -14,5 +14,6 @@ hive> select OwnerUserId, SUM(Score) as TotalUserScore from DATASET where OwnerU
 hive> select count (distinct OwnerUserId) from DATASET where LOWER(Body) like LOWER('%cloud%') or LOWER(Title) like LOWER('%cloud%');
 
 #3.3b
-#Assumption B: Match word cloud solely on its own. 
-hive> select count (distinct OwnerUserId) from DATASET where LOWER(Body) like LOWER('% cloud %') or LOWER(Body) like LOWER('%cloud %') or LOWER(Body) like LOWER(' %cloud.%') or LOWER(Title) like LOWER('% cloud %') or LOWER(Title) like LOWER('%cloud %') or LOWER(Title) like LOWER('% cloud.%');
+#Assumption B: Match word cloud solely on its own - including hyphenated compound words. E.g. - 'cloud-technology'.
+hive> select count (distinct OwnerUserId) from DATASET where LOWER(Body) like LOWER('% cloud %') or LOWER(Body) like LOWER('%cloud %') or LOWER(Body) like LOWER(' %cloud.%') or LOWER(Body) like LOWER(' %cloud-%') or LOWER(Body) like LOWER(' %cloud*%') or LOWER(Title) like LOWER('% cloud %') or LOWER(Title) like LOWER('%cloud %') or LOWER(Title) like LOWER('% cloud.%') or LOWER(Title) like LOWER('% cloud-%') or LOWER(Title) like LOWER('% cloud*%');
+
