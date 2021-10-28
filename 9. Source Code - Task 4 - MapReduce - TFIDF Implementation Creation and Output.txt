@@ -1,0 +1,7 @@
+$ hadoop jar /usr/lib/hadoop/hadoop-streaming.jar -file /home/colin_hehir3/tfidf_mapper_phase_1.py /home/colin_hehir3/tfidf_reducer_phase_1.py -mapper "python mapper1.py" -reducer "python reducer1.py" -input /user/colin_hehir3/StackExchangeData_Total_Task4_Final_Output/part-r-00000 -output /user/colin_hehir3/tfidf_output_phase_1
+
+$ hadoop jar /usr/lib/hadoop/hadoop-streaming.jar -file /home/colin_hehir3/tfidf_mapper_phase_2.py /home/colin_hehir3/tfidf_reducer_phase_2.py -mapper "python mapper2.py" -reducer "python reducer2.py" -input /user/colin_hehir3/tfidf_output_phase_1/part-0000* -output /user/colin_hehir3/tfidf_output_phase_2
+
+$ hadoop jar /usr/lib/hadoop/hadoop-streaming.jar -file /home/colin_hehir3/tfidf_mapper_phase_3.py /home/colin_hehir3/tfidf_reducer_phase_3.py -mapper "python mapper3.py" -reducer "python reducer3.py" -input /user/colin_hehir3/tfidf_output_phase_2/part-0000* -output /user/colin_hehir3/tfidf_output_phase_3
+
+$ hadoop jar /usr/lib/hadoop/hadoop-streaming.jar -file /home/colin_hehir3/tfidf_mapper_phase_4.py -mapper "python mapper4.py" -input /user/colin_hehir3/tfidf_output_phase_3/part-0000* -output /user/colin_hehir3/tfidf_output_phase_4_final
