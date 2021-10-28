@@ -1,0 +1,8 @@
+$ hive
+
+hive> CREATE TABLE tfidf_task4_top10 (Word string, OwnerUserId int, TFIDF_Value double) row format delimited fields terminated by '\t' stored as textfile;
+
+hive> load data inpath '/user/colin_hehir3/tfidf_output_phase_4_final/part-0000*' into table tfidf_task4_top10;
+
+hive> SELECT * FROM (SELECT OwnerUserId,TFIDF_Value,Word, rank() over (PARTITION BY OwnerUserId ORDER BY TFIDF_Value DESC) as rank FROM tfidf_task4_top10 DISTRIBUTE BY OwnerUserId SORT BY OwnerUserId desc) a WHERE rank <= 10 ORDER BY OwnerUserId, rank;
+
