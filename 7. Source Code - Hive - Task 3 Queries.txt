@@ -1,0 +1,18 @@
+#3.1
+hive> select Id, Score, Title from DATASET sort by Score desc limit 10;
+
+#3.2a
+#Including NULL user ID's.
+hive> select OwnerUserId, SUM(Score) as TotalUserScore from DATASET group by OwnerUserId order by TotalUserScore desc limit 10;
+
+#3.2b
+#Not including NULL user ID's.
+hive> select OwnerUserId, SUM(Score) as TotalUserScore from DATASET where OwnerUserID is not null  group by OwnerUserId order by TotalUserScore desc limit 10;
+
+#3.3a
+#Assumption A: Match word cloud in any instance.
+hive> select count (distinct OwnerUserId) from DATASET where LOWER(Body) like LOWER('%cloud%') or LOWER(Title) like LOWER('%cloud%');
+
+#3.3b
+#Assumption B: Match word cloud solely on its own. 
+hive> select count (distinct OwnerUserId) from DATASET where LOWER(Body) like LOWER('% cloud %') or LOWER(Body) like LOWER('%cloud %') or LOWER(Body) like LOWER(' %cloud.%') or LOWER(Title) like LOWER('% cloud %') or LOWER(Title) like LOWER('%cloud %') or LOWER(Title) like LOWER('% cloud.%');
