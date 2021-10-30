@@ -48,7 +48,7 @@ grunt> StackExchangeData_Cleaning_20 = FOREACH StackExchangeData_Cleaning_19 GEN
 
 grunt> StackExchangeData_Cleaning_21 = FOREACH StackExchangeData_Cleaning_20 GENERATE Id,Score,ViewCount, REPLACE(Body,'\\>','') as Body,OwnerUserId,OwnerDisplayName,REPLACE(Title,'\\>','') as Title;
 
-grunt> StackExchangeData_Total_Task4_Cleaned = FILTER StackExchangeData_Cleaning_21 BY (OwnerUserId == 87234 or OwnerUserId == 4883 or OwnerUserId == 9951 or OwnerUserId == 6068 or OwnerUserId == 89904 or OwnerUserId == 51816 or OwnerUserId == 179736 or OwnerUserId == 95592 or OwnerUserId == 63051 or OwnerUserId == 4915) ;
+grunt> StackExchangeData_Total_Task4_Cleaned = FILTER StackExchangeData_Cleaning_21 BY (OwnerUserId == 87234 or OwnerUserId == 4883 or OwnerUserId == 9951 or OwnerUserId == 6068 or OwnerUserId == 89904 or OwnerUserId == 51816 or OwnerUserId == 179736 or OwnerUserId == 95592 or OwnerUserId == 63051 or OwnerUserId == 49153) ;
 
 grunt> StackExchangeData_Total_Task4_Title_Body = FOREACH StackExchangeData_Total_Task4_Cleaned GENERATE OwnerUserId, CONCAT(Body,' ',Title) AS Body_Title;
 
